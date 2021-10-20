@@ -8,11 +8,17 @@ import PyPDF2
 import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+# nltk.download()
+# nltk.download('punkt')
+
+from nltk.stem import PorterStemmer
+
 import sys
 import glob, os
 import pickle
 
-base=r'D:\USUARIS\GEUGYFH\Desktop\Documents Processing'
+# base=r'D:\USUARIS\GEUGYFH\Desktop\Documents Processing'
+base=os.getcwd()
 files=os.listdir(base)
 
 try:
@@ -49,13 +55,29 @@ paragraph=String[230:236]
 
 paragraph_Flat='_'.join(paragraph)
 
+# Tokenizing sentences
 sentences=nltk.sent_tokenize(paragraph_Flat)
-lemmatizer= WordNetLemmatizer()
+sentences_Ste=nltk.sent_tokenize(paragraph_Flat)
+sentences_Lem=nltk.sent_tokenize(paragraph_Flat)
 
+
+# Tokenizing words
+words=nltk.word_tokenize(paragraph_Flat)
+
+# Stemming No sense words
+stemmer=PorterStemmer()
 for i in range(len(sentences)):
-    words= nltk.word_tokenize(sentences[i])
-    words=[lemmatizer.lemmatize(word) for word in words if word not in set(stopwords.words('english'))]
-    sentences[i]=' ' .join(words)
+    words_Ste= nltk.word_tokenize(sentences[i])
+    words_Ste=[stemmer.stem(word) for word in words_Ste if word not in set(stopwords.words('english'))]
+    sentences_Ste[i]=' ' .join(words_Ste)
+
+
+# Lemming Sense words
+lemmatizer= WordNetLemmatizer()
+for i in range(len(sentences)):
+    words_Lem= nltk.word_tokenize(sentences[i])
+    words_Lem=[lemmatizer.lemmatize(word) for word in words_Lem if word not in set(stopwords.words('english'))]
+    sentences_Lem[i]=' ' .join(words_Lem)
 
 
 

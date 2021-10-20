@@ -2,7 +2,7 @@
 """
 Created on Wed Oct 20 09:38:25 2021
 
-@author: GEUGYFH
+@author: Daniel Estepa
 """
 import PyPDF2
 import nltk

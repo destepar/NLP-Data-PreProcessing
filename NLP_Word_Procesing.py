@@ -122,6 +122,8 @@ import matplotlib.pyplot as plt
 
 plt.bar(np.arange(0,len(Wrds_Hist),1),Wrds_Hist)
 
+Wrds_Hist.sort()
+
 
 
 

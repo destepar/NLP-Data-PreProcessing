@@ -16,6 +16,7 @@ from nltk.stem import PorterStemmer
 import sys
 import glob, os
 import pickle
+import numpy as np
 
 # base=r'D:\USUARIS\GEUGYFH\Desktop\Documents Processing'
 base=os.getcwd()
@@ -78,6 +79,48 @@ for i in range(len(sentences)):
     words_Lem= nltk.word_tokenize(sentences[i])
     words_Lem=[lemmatizer.lemmatize(word) for word in words_Lem if word not in set(stopwords.words('english'))]
     sentences_Lem[i]=' ' .join(words_Lem)
+    
+
+#Bag of words Approach
+
+# Cleaning the text
+
+import re
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+
+ps=PorterStemmer()
+wordnet=WordNetLemmatizer()
+sentences=nltk.sent_tokenize(paragraph_Flat)
+corpus=[]
+
+for i in range(len(sentences)):
+    review=re.sub('[^a-zA-Z]', ' ', sentences[i])
+    review=review.lower()
+    review=review.split()
+    review=[wordnet.lemmatize(word) for word in review if not word in set(stopwords.words('english'))]
+    review=' '.join(review)
+    corpus.append(review)
+
+corpus2 = [x for x in corpus if x!='']
+
+
+    
+# Xreating the Bag of Words Model
+from sklearn.feature_extraction.text import CountVectorizer
+
+cv=CountVectorizer(max_features=1500)
+
+X=cv.fit_transform(corpus2).toarray()
+
+wrds=cv.get_feature_names()
+
+Wrds_Hist=np.sum(X,axis=0)
+
+import matplotlib.pyplot as plt
+
+plt.bar(np.arange(0,len(Wrds_Hist),1),Wrds_Hist)
 
 
 

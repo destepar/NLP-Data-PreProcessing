@@ -114,15 +114,15 @@ cv=CountVectorizer(max_features=1500)
 
 X=cv.fit_transform(corpus2).toarray()
 
-wrds=cv.get_feature_names()
+wrds=cv.get_feature_names_out()
 
 Wrds_Hist=np.sum(X,axis=0)
 
 import matplotlib.pyplot as plt
 
-plt.bar(np.arange(0,len(Wrds_Hist),1),Wrds_Hist)
-
 Wrds_Hist.sort()
+
+plt.bar(np.arange(0,len(Wrds_Hist),1),Wrds_Hist[::-1])
 
 
 

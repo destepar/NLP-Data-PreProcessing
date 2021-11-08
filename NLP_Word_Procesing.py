@@ -107,7 +107,7 @@ corpus2 = [x for x in corpus if x!='']
 
 
     
-# Xreating the Bag of Words Model
+# Creating the Bag of Words Model
 from sklearn.feature_extraction.text import CountVectorizer
 
 cv=CountVectorizer(max_features=1500)
@@ -118,13 +118,19 @@ wrds=cv.get_feature_names_out()
 
 Wrds_Hist=np.sum(X,axis=0)
 
+# PLot Frequency terms
 import matplotlib.pyplot as plt
 
 Wrds_Hist.sort()
 
 plt.bar(np.arange(0,len(Wrds_Hist),1),Wrds_Hist[::-1])
 
+# Creating the TF IDF bag od words
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+cv=TfidfVectorizer()
+X=cv.fit_transform(corpus2).toarray()
 
 
 

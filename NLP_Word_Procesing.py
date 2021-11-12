@@ -118,6 +118,7 @@ wrds=cv.get_feature_names_out()
 
 Wrds_Hist=np.sum(X,axis=0)
 
+
 # PLot Frequency terms
 import matplotlib.pyplot as plt
 
